@@ -1,0 +1,1 @@
+javascript:(function(){ var d = document; var b = d.body; var s = d.createElement('script'); s.src = "http://localhost/machinetaggeo/machinetaggeo.js?" + (new Date().getTime()); b.appendChild(s); })();
