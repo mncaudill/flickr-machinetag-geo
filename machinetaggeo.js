@@ -1,5 +1,6 @@
 (function () {
     var machine_tags_links, machine_tags, geo_sources;
+    var parser_url_root = "http://localhost/machinetaggeo/parser.php?";
 
     // Possible geosources
     geo_sources = new Array();
@@ -10,7 +11,7 @@
             console.log(data);
         },
         fetch_geo: function(mt_value){
-            jsonp_request('http://nolancaudill.com', this.fetch_geo_callback);           
+            jsonp_request('foodspotting', mt_value, this.fetch_geo_callback);           
         },
     });
 
@@ -47,9 +48,16 @@
         };
     }
 
-    function jsonp_request(url, callback) {
+    function jsonp_request(service, value, callback) {
         var body, script, global_callback_name; 
         global_callback_name = 'mtgeo_' + Math.floor(Math.random() * 100000000);
+
+        window[global_callback_name] = callback;
+        
+        body = document.body;
+        script = document.createElement('script');
+        script.src = parser_url_root + "cb=" + global_callback_name + "&service=" + service + "&value=" + value;
+        body.appendChild(script);
     }
     
 })();
