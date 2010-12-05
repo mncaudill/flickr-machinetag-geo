@@ -12,7 +12,12 @@
         preg_match('#id="place_longitude".*value="(.*)"#U', $page, $matches);
         $longitude = $matches[1];
 
+        preg_match('#id="place_name".*value="(.*)"#U', $page, $matches);
+        $place_name = $matches[1];
+
         return array(
+            "place_name" => $place_name,
+            "url" => $url,
             "latitude" => $latitude,
             "longitude" => $longitude,
         );
