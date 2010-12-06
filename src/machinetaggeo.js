@@ -18,10 +18,7 @@
         geo_sources.push({
             namespace: 'foodspotting',
             predicate: 'place',
-            fetch_geo_callback: function(data) {
-                console.log(data);
-                show_geo_data(data);
-            },
+            fetch_geo_callback: show_geo_data,
             fetch_geo: function(mt_value){
                 jsonp_request('foodspotting', mt_value, this.fetch_geo_callback);           
             },
@@ -29,10 +26,7 @@
         geo_sources.push({
             namespace: 'foursquare',
             predicate: 'venue',
-            fetch_geo_callback: function(data) {
-                console.log(data);
-                show_geo_data(data);
-            },
+            fetch_geo_callback: show_geo_data,
             fetch_geo: function(mt_value){
                 jsonp_request('foursquare', mt_value, this.fetch_geo_callback);           
             },
@@ -40,10 +34,7 @@
         geo_sources.push({
             namespace: 'openplaques',
             predicate: 'id',
-            fetch_geo_callback: function(data) {
-                console.log(data);
-                show_geo_data(data);
-            },
+            fetch_geo_callback: show_geo_data,
             fetch_geo: function(mt_value){
                 jsonp_request('openplaques', mt_value, this.fetch_geo_callback);           
             },
@@ -51,10 +42,7 @@
         geo_sources.push({
             namespace: 'lastfm',
             predicate: 'event',
-            fetch_geo_callback: function(data) {
-                console.log(data);
-                show_geo_data(data);
-            },
+            fetch_geo_callback: show_geo_data,
             fetch_geo: function(mt_value){
                 jsonp_request('lastfm', mt_value, this.fetch_geo_callback);           
             },
@@ -62,10 +50,7 @@
         geo_sources.push({
             namespace: 'dopplr',
             predicate: 'explore',
-            fetch_geo_callback: function(data) {
-                console.log(data);
-                show_geo_data(data);
-            },
+            fetch_geo_callback: show_geo_data,
             fetch_geo: function(mt_value){
                 jsonp_request('dopplr', mt_value, this.fetch_geo_callback);           
             },
