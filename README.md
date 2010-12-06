@@ -1,9 +1,10 @@
-********************
-flickr-machinetag-geo
+# flickr-machinetag-geo
+
 Author: Nolan Caudill
+
 Date: 2010/12/05
+
 License: BSD
-********************
 
 This is a bookmarklet to use Flickr's machine tag to pull
 in the geodata. This is much more impressive when the geodata
@@ -12,9 +13,11 @@ itself is not already on the page.
 This project was completely inspired by Aaron Cope's post (http://www.aaronland.info/weblog/2010/12/06/urmum/#enplacify).
 
 Currently supported machine tags:
+
 * foodspotting
 
 To be supported:
+
 * yelp
 * foursquare
 * etc, etc, etc
