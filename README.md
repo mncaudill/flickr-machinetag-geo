@@ -1,8 +1,8 @@
 # flickr-machinetag-geo
 
-Author: Nolan Caudill
-Date: 2010/12/05
-License: BSD
+Author: Nolan Caudill  
+Date: 2010/12/05  
+License: BSD  
 
 This is a bookmarklet to use Flickr's machine tag to pull
 in the geodata. This is much more impressive when the geodata
