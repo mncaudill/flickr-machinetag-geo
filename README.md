@@ -23,7 +23,7 @@ To be supported:
 To use, drag [this link][bookmarklet] to your browser bar.
 
 
-A good first page to look at is Flickr's own, Chris Martin:
-http://www.flickr.com/photos/cjmartin/5234756177/
+A good first page to look at is Flickr's own, Chris Martin: [Foodspotting example][foodspotting_example]
 
+[foodspotting_example]: http://www.flickr.com/photos/cjmartin/5234756177/ "Foodspotting example"
 [bookmarklet]: javascript:(function(){var e=document;var a=e.body;var c=e.createElement("script");c.src="https://nolancaudill.com/projects/machinetaggeo/machinetaggeo-min.js?"+(new Date().getTime());a.appendChild(c)})(); "flickr-machinetag-geo"
