@@ -1,7 +1,7 @@
 #!/bin/bash
 
-HOST="http:\/\/nolancaudill.com\/machinetaggeo"
-HOST="http:\/\/localhost\/machinetaggeo\/build"
+HOST="https:\/\/nolancaudill.com\/projects\/machinetaggeo"
+#HOST="http:\/\/localhost\/machinetaggeo\/build"
 
 if [ -z "$YUICOMPRESSOR" ] 
     then
