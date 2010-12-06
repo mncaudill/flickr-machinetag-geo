@@ -1,34 +1,47 @@
 (function () {
     var machine_tags_links, machine_tags, geo_sources;
-    var parser_url_root = "BUILD_URL_ROOT/parser.php?";
+    var parser_url_root = "http://localhost/machinetaggeo/parser.php?";
 
-    // Possible geosources
-    geo_sources = new Array();
-    geo_sources.push({
-        namespace: 'foodspotting',
-        predicate: 'place',
-        fetch_geo_callback: function(data) {
-            console.log(data);
-            draw_info_box(data);
-        },
-        fetch_geo: function(mt_value){
-            jsonp_request('foodspotting', mt_value, this.fetch_geo_callback);           
-        },
-    });
+    var info_box = null;
 
-    // Does this page continue machine tags?
-    machine_tags_links = document.querySelectorAll('#themachinetags > li > a');
+    // Try to reload box if we've already seen it
+    var test_div = document.getElementById('machinetaggeo-div');
 
-    // Does page contain one of our machine tagged geo sources?
-    for(var i = 0; i < machine_tags_links.length; i++) {
+    if(test_div) {
+        test_div.style.display = 'block';
+    } else {
 
-        machine_tag_info = extract_machine_tag_info(machine_tags_links[i].text);
+        draw_loading_box();
 
-        for(var j = 0; j < geo_sources.length; j++) {
-            if(geo_sources[j].namespace ==  machine_tag_info.namespace &&
-                geo_sources[j].predicate == machine_tag_info.predicate) {
-                    geo_sources[j].fetch_geo(machine_tag_info.value);
-                    break;
+        // Possible geosources
+        geo_sources = new Array();
+        geo_sources.push({
+            namespace: 'foodspotting',
+            predicate: 'place',
+            fetch_geo_callback: function(data) {
+                console.log(data);
+                show_geo_data(data);
+            },
+            fetch_geo: function(mt_value){
+                jsonp_request('foodspotting', mt_value, this.fetch_geo_callback);           
+            },
+        });
+
+        // Does this page continue machine tags?
+        machine_tags_links = document.querySelectorAll('#themachinetags > li > a');
+
+        // Does page contain one of our machine tagged geo sources?
+        for(var i = 0; i < machine_tags_links.length; i++) {
+
+            machine_tag_info = extract_machine_tag_info(machine_tags_links[i].text);
+
+            for(var j = 0; j < geo_sources.length; j++) {
+                if(geo_sources[j].namespace ==  machine_tag_info.namespace &&
+                    geo_sources[j].predicate == machine_tag_info.predicate) {
+                        append_loading_text('Found machine tag for ' + machine_tag_info.namespace + '...');
+                        geo_sources[j].fetch_geo(machine_tag_info.value);
+                        break;
+                }
             }
         }
     }
@@ -61,7 +74,7 @@
         body.appendChild(script);
     }
 
-    function draw_info_box(data) {
+    function draw_loading_box() {
         var body = document.body;
 
         var div = document.createElement('div');
@@ -77,11 +90,23 @@
         div.style.padding = "10px";
         div.id = "machinetaggeo-div";
 
+        info_box = div;
+
+        append_loading_text('Trying to find machine tags...');
+    }
+
+    function show_geo_data(data) {
         var url = "http://maps.google.com/maps/api/staticmap?size=300x300&markers=color:blue||" + data.latitude + "," + data.longitude + "&sensor=false";
-        div.innerHTML = "<div style='color:black;font-weight:bold;size:14px;'><a href='" + data.url  + "'>" + data.place_name + "</a></div>";
-        div.innerHTML += "<input type='text' value='" + data.latitude + "," + data.longitude + "'/>";
-        div.innerHTML += "<img style='margin-top:10px;' src=" + url + ">";
-        div.innerHTML += "<br><a onclick='document.getElementById(\"machinetaggeo-div\").style.display=\"none\";'>close</a>";
+        var text = "<div style='color:black;font-weight:bold;size:14px;'><a href='" + data.url  + "'>" + data.place_name + "</a></div>";
+        text += "<input type='text' value='" + data.latitude + "," + data.longitude + "'/>";
+        text += "<img style='margin-top:10px;' src=" + url + ">";
+        text += "<br><a onclick='document.getElementById(\"machinetaggeo-div\").style.display=\"none\";'>close</a>";
+
+        info_box.innerHTML = text;
+    }
+
+    function append_loading_text(text) {
+        info_box.innerHTML += text + "<br/>";
     }
     
 })();
