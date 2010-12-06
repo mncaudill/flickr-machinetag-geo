@@ -1,6 +1,6 @@
 (function () {
     var machine_tags_links, machine_tags, geo_sources;
-    var parser_url_root = "http://localhost/machinetaggeo/parser.php?";
+    var parser_url_root = "BUILD_URL_ROOT/parser.php?";
 
     var info_box = null;
 
@@ -26,6 +26,17 @@
                 jsonp_request('foodspotting', mt_value, this.fetch_geo_callback);           
             },
         });
+        geo_sources.push({
+            namespace: 'foursquare',
+            predicate: 'venue',
+            fetch_geo_callback: function(data) {
+                console.log(data);
+                show_geo_data(data);
+            },
+            fetch_geo: function(mt_value){
+                jsonp_request('foursquare', mt_value, this.fetch_geo_callback);           
+            },
+        });
 
         // Does this page continue machine tags?
         machine_tags_links = document.querySelectorAll('#themachinetags > li > a');
@@ -35,14 +46,25 @@
 
             machine_tag_info = extract_machine_tag_info(machine_tags_links[i].text);
 
+            var detected = false;
             for(var j = 0; j < geo_sources.length; j++) {
                 if(geo_sources[j].namespace ==  machine_tag_info.namespace &&
                     geo_sources[j].predicate == machine_tag_info.predicate) {
                         append_loading_text('Found machine tag for ' + machine_tag_info.namespace + '...');
                         geo_sources[j].fetch_geo(machine_tag_info.value);
+                        detected = true;
                         break;
                 }
             }
+
+            if(detected) {
+                break;
+            }
+
+        }
+
+        if(!detected) {
+            append_loading_text('Unable to find useful machine tags...');
         }
     }
 

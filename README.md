@@ -15,11 +15,11 @@ This project was completely inspired by Aaron Cope's post (http://www.aaronland.
 Currently supported machine tags:
 
 * foodspotting
+* foursquare
 
 To be supported:
 
 * yelp
-* foursquare
 * etc, etc, etc
 
 Check out [the project page][project_page] for the draggable bookmarklet.
