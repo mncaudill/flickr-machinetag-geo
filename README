@@ -1,0 +1,22 @@
+********************
+flickr-machinetag-geo
+Author: Nolan Caudill
+Date: 2010/12/05
+License: BSD
+********************
+
+This is a bookmarklet to use Flickr's machine tag to pull
+in the geodata. This is much more impressive when the geodata
+itself is not already on the page. 
+
+Currently supported machine tags:
+* foodspotting
+
+To be supported:
+* yelp
+* foursquare
+* etc, etc, etc
+
+To use, create a new bookmark with this as the URL:
+javascript:(function(){var e=document;var a=e.body;var c=e.createElement("script");c.src="https://nolancaudill.com/projects/machinetaggeo/machinetaggeo-min.js?"+(new Date().getTime());a.appendChild(c)})();
+
