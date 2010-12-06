@@ -17,6 +17,7 @@ Currently supported machine tags:
 * foodspotting
 * foursquare
 * lastfm
+* dopplr
 * openplaques
 
 To be supported:
