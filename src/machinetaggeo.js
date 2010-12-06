@@ -44,7 +44,15 @@
             predicate: 'event',
             fetch_geo_callback: show_geo_data,
             fetch_geo: function(mt_value){
-                jsonp_request('lastfm', mt_value, this.fetch_geo_callback);           
+                jsonp_request('lastfm', 'event-' + mt_value, this.fetch_geo_callback);           
+            },
+        });
+        geo_sources.push({
+            namespace: 'lastfm',
+            predicate: 'venue',
+            fetch_geo_callback: show_geo_data,
+            fetch_geo: function(mt_value){
+                jsonp_request('lastfm', 'venue-' + mt_value, this.fetch_geo_callback);           
             },
         });
         geo_sources.push({
