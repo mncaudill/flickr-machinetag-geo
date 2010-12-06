@@ -7,6 +7,7 @@
     $value = $_GET['value'];
 
     $services = array(
+        'dopplr',
         'foodspotting',
         'foursquare',
         'lastfm',
