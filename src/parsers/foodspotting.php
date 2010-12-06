@@ -16,9 +16,9 @@
         $place_name = $matches[1];
 
         return array(
-            "place_name" => $place_name,
-            "url" => $url,
-            "latitude" => $latitude,
-            "longitude" => $longitude,
+            "place_name" => escape_string($place_name),
+            "url" => escape_string($url),
+            "latitude" => escape_string($latitude),
+            "longitude" => escape_string($longitude),
         );
     }

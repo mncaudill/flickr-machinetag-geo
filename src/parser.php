@@ -21,3 +21,9 @@
     $json_geodata = json_encode(get_geodata($value));
     
     echo "$cb($json_geodata);";
+
+    function escape_string($string) {
+        $searches = array('<', '>');
+        $replacements = array('&lt;', '&gt;');
+        return str_replace($searches, $replacements, $string);
+    }
