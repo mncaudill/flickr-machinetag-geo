@@ -20,3 +20,5 @@ To be supported:
 To use, create a new bookmark with this as the URL:
 javascript:(function(){var e=document;var a=e.body;var c=e.createElement("script");c.src="https://nolancaudill.com/projects/machinetaggeo/machinetaggeo-min.js?"+(new Date().getTime());a.appendChild(c)})();
 
+A good first page to look at is Flickr's own, Chris Martin:
+http://www.flickr.com/photos/cjmartin/5234756177/
