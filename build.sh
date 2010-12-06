@@ -9,23 +9,19 @@ if [ -z "$YUICOMPRESSOR" ]
     exit
 fi
 
-if [ ! -d build ]
-    then
-    mkdir build
-fi
-
 echo "Moving all files over to build dir..."
+rm -rf build
+mkdir build
 cp -R src/* build/
 
 echo "Filling in variables..."
-sed "s/BUILD_URL_ROOT/$HOST/g" src/bookmarklet.js > bookmarklet-tmp.js
-sed "s/BUILD_URL_ROOT/$HOST/g" src/machinetaggeo.js > machinetaggeo-tmp.js
+sed "s/BUILD_URL_ROOT/$HOST/g" src/bookmarklet.js > build/bookmarklet.js
+sed "s/BUILD_URL_ROOT/$HOST/g" src/machinetaggeo.js > build/machinetaggeo.js
 
 echo "Minifying bookmarklet.js..."
-java -jar "$YUICOMPRESSOR" -o build/bookmarklet-min.js bookmarklet-tmp.js
-rm bookmarklet-tmp.js
+cd build
+java -jar "$YUICOMPRESSOR" -o bookmarklet-min.js bookmarklet.js
 echo "Minifying machinetaggeo.js..."
-java -jar "$YUICOMPRESSOR" -o build/machinetaggeo-min.js machinetaggeo-tmp.js
-rm machinetaggeo-tmp.js
+java -jar "$YUICOMPRESSOR" -o machinetaggeo-min.js machinetaggeo.js
 echo "Complete!"
 
