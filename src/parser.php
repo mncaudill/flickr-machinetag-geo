@@ -1,5 +1,7 @@
 <?php
 
+    require_once 'secrets.php';
+
     $cb = $_GET['cb'];
     $service = $_GET['service'];
     $value = $_GET['value'];
