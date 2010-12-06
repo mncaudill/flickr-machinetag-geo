@@ -63,6 +63,14 @@
                 jsonp_request('dopplr', mt_value, this.fetch_geo_callback);           
             },
         });
+        geo_sources.push({
+            namespace: 'noticings',
+            predicate: 'id',
+            fetch_geo_callback: show_geo_data,
+            fetch_geo: function(mt_value){
+                jsonp_request('noticings', mt_value, this.fetch_geo_callback);           
+            },
+        });
 
         // Does this page continue machine tags?
         machine_tags_links = document.querySelectorAll('#themachinetags > li > a');

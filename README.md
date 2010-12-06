@@ -16,9 +16,10 @@ Currently supported machine tags:
 
 * foodspotting
 * foursquare
-* lastfm
+* last.fm (both events and venues)
 * dopplr
 * openplaques
+* noticin.gs
 
 To be supported:
 

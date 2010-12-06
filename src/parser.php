@@ -12,6 +12,7 @@
         'foursquare',
         'lastfm',
         'openplaques',
+        'noticings',
     );
 
     if(!$cb || !$service || !$value || !in_array($service, $services)) {
