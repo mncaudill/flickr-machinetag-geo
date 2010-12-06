@@ -37,6 +37,17 @@
                 jsonp_request('foursquare', mt_value, this.fetch_geo_callback);           
             },
         });
+        geo_sources.push({
+            namespace: 'openplaques',
+            predicate: 'id',
+            fetch_geo_callback: function(data) {
+                console.log(data);
+                show_geo_data(data);
+            },
+            fetch_geo: function(mt_value){
+                jsonp_request('openplaques', mt_value, this.fetch_geo_callback);           
+            },
+        });
 
         // Does this page continue machine tags?
         machine_tags_links = document.querySelectorAll('#themachinetags > li > a');

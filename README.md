@@ -16,6 +16,7 @@ Currently supported machine tags:
 
 * foodspotting
 * foursquare
+* openplaques
 
 To be supported:
 

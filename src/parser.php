@@ -7,6 +7,7 @@
     $services = array(
         'foodspotting',
         'foursquare',
+        'openplaques',
     );
 
     if(!$cb || !$service || !$value || !in_array($service, $services)) {
