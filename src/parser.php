@@ -9,6 +9,7 @@
     $services = array(
         'foodspotting',
         'foursquare',
+        'lastfm',
         'openplaques',
     );
 
