@@ -8,7 +8,7 @@ This is a bookmarklet to use Flickr's machine tag to pull
 in the geodata. This is much more impressive when the geodata
 itself is not already on the page. 
 
-This project is *very* alpha. Very little error-checking and supports only one machine tag provider. It also only works on semi-modern browsers that support JS's querySelectorAll.
+This project is *very* alpha--there is very little error-checking. It also only works on semi-modern browsers that support JS's querySelectorAll.
 
 This project was completely inspired by Aaron Cope's post (http://www.aaronland.info/weblog/2010/12/06/urmum/#enplacify).
 
@@ -16,6 +16,7 @@ Currently supported machine tags:
 
 * foodspotting
 * foursquare
+* lastfm
 * openplaques
 
 To be supported:

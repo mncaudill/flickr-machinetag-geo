@@ -1,2 +1,3 @@
 build/
 secrets.php
+release.sh
