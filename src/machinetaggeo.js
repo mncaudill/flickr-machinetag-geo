@@ -1,6 +1,6 @@
 (function () {
     var machine_tags_links, machine_tags, geo_sources;
-    var parser_url_root = "http://localhost/machinetaggeo/parser.php?";
+    var parser_url_root = "BUILD_URL_ROOT/parser.php?";
 
     // Possible geosources
     geo_sources = new Array();
