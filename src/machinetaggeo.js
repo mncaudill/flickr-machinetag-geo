@@ -137,9 +137,10 @@
 
     function show_geo_data(data) {
         var url = "http://maps.google.com/maps/api/staticmap?&zoom=14&size=300x300&markers=color:blue||" + data.latitude + "," + data.longitude + "&sensor=false";
+        var map_url = "http://maps.google.com/maps?q=" + data.latitude + "," + data.longitude;
         var text = "<div style='color:black;font-weight:bold;size:14px;'><a href='" + data.url  + "'>" + data.place_name + "</a></div>";
         text += "<input type='text' value='" + data.latitude + "," + data.longitude + "'/>";
-        text += "<img style='margin-top:10px;' src=" + url + ">";
+        text += "<a href='" + map_url + "'><img style='margin-top:10px;' src=" + url + "></a>";
         text += "<br><a onclick='document.getElementById(\"machinetaggeo-div\").style.display=\"none\";'>close</a>";
 
         info_box.innerHTML = text;
