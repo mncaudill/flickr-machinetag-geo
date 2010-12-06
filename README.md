@@ -1,9 +1,7 @@
 # flickr-machinetag-geo
 
 Author: Nolan Caudill
-
 Date: 2010/12/05
-
 License: BSD
 
 This is a bookmarklet to use Flickr's machine tag to pull
