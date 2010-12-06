@@ -13,6 +13,7 @@
         'lastfm',
         'openplaques',
         'noticings',
+        'upcoming',
     );
 
     if(!$cb || !$service || !$value || !in_array($service, $services)) {

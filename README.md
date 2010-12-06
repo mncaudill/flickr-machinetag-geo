@@ -17,14 +17,10 @@ Currently supported machine tags:
 * foodspotting
 * foursquare
 * last.fm (both events and venues)
+* upcoming
 * dopplr
 * openplaques
 * noticin.gs
-
-To be supported:
-
-* yelp
-* etc, etc, etc
 
 Check out [the project page][project_page] for the draggable bookmarklet.
 
