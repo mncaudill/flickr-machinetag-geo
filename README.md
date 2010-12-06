@@ -20,8 +20,10 @@ To be supported:
 * foursquare
 * etc, etc, etc
 
-To use, drag [this link](javascript:(function(){var e=document;var a=e.body;var c=e.createElement("script");c.src="https://nolancaudill.com/projects/machinetaggeo/machinetaggeo-min.js?"+(new Date().getTime());a.appendChild(c)})(); "flickr-machinetag-geo") to your browser bar.
+To use, drag [this link][bookmarklet] to your browser bar.
 
 
 A good first page to look at is Flickr's own, Chris Martin:
 http://www.flickr.com/photos/cjmartin/5234756177/
+
+[bookmarklet]: javascript:(function(){var e=document;var a=e.body;var c=e.createElement("script");c.src="https://nolancaudill.com/projects/machinetaggeo/machinetaggeo-min.js?"+(new Date().getTime());a.appendChild(c)})(); "flickr-machinetag-geo"
