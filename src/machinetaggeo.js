@@ -83,6 +83,7 @@
 
         if(!detected) {
             append_loading_text('Unable to find useful machine tags...');
+            append_loading_text("<br><a onclick='document.getElementById(\"machinetaggeo-div\").style.display=\"none\";'>close</a>");
         }
     }
 
