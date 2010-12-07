@@ -3,6 +3,9 @@
     var parser_url_root = "BUILD_URL_ROOT/parser.php?";
 
     var info_box = null;
+    var body_text = document.body.innerHTML;
+    var secrets = get_secrets();
+    var photo_id = window.location.pathname.match(/^\/photos\/(.*?)\/(.*?)\//)[2];
 
     // Try to reload box if we've already seen it
     var test_div = document.getElementById('machinetaggeo-div');
@@ -161,22 +164,73 @@
     }
 
     function show_geo_data(data) {
-        var url, map_url, text;
+        var url, map_url, text, lat_lon_string;
+        lat_lon_string = data.latitude + ',' + data.longitude;
 
         if(data.latitude && data.longitude) {
             url = "http://maps.google.com/maps/api/staticmap?&zoom=14&size=300x300&markers=color:blue||" + data.latitude + "," + data.longitude + "&sensor=false";
-            map_url = "http://maps.google.com/maps?q=" + data.latitude + "," + data.longitude;
+            map_url = "http://maps.google.com/maps?q=" + lat_lon_string;
             text = "<div style='color:black;font-weight:bold;size:14px;'><a href='" + data.url  + "'>" + data.place_name + "</a></div>";
-            text += "<input type='text' value='" + data.latitude + "," + data.longitude + "'/>";
+            text += "<input type='text' value='" + lat_lon_string + "'/>";
+            if(is_owner()) {
+                text += '<div id="mtgeo_setlocation_butt" style="margin:5px 0;width:80px;" onclick="mtgeo_setlocation(' + lat_lon_string + ');" class="Butt">Set Location</div>';
+            }
             text += "<a href='" + map_url + "'><img style='margin-top:10px;' src=" + url + "></a>";
         } else {
             text = "Unable to fetch coordinates.";
         }
 
+
+        // Build button to geotag photo
+
         text += "<br><a onclick='document.getElementById(\"machinetaggeo-div\").style.display=\"none\";'>close</a>";
 
         info_box.innerHTML = text;
     }
+
+    function is_owner() {
+        return /isOwner:\s*true/.test(body_text);
+    }
+
+    function get_secrets() {
+       
+        return {
+            api_key: body_text.match(/api_key:\s*'(.*?)'/)[1],
+            auth_hash: body_text.match(/auth_hash:\s*'(.*?)'/)[1],
+            secret: body_text.match(/secret:\s*'(.*?)'/)[1],
+        };
+
+    }
+
+    function set_geolocation(latitude, longitude) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4) {
+                var button = document.getElementById('mtgeo_setlocation_butt');
+                if(xhr.responseText.match(/stat="ok"/)) {
+                    button.innerHTML = 'Success';
+                } else {
+                    button.innerHTML = 'Error';
+                    button.className = 'DeleteButt';
+                }
+
+                button.onclick = null;
+            }
+        };
+
+        var url = '/services/rest/?';
+        url += '&api_key=' + secrets.api_key;
+        url += '&auth_token=';
+        url += '&auth_hash=' + secrets.auth_hash;
+        url += '&lat=' + latitude;
+        url += '&lon=' + longitude;
+        url += '&method=flickr.photos.geo.setLocation';
+        url += '&photo_id=' + photo_id;
+        url += '&secret=' + secrets.secret;
+        xhr.open('GET', url);
+        xhr.send(null);
+    }
+    window.mtgeo_setlocation = set_geolocation;
 
     function append_loading_text(text) {
         info_box.innerHTML += text + "<br/>";
