@@ -1,5 +1,7 @@
 <?php
 
+    ini_set('display_errors', 'off');
+
     require_once 'secrets.php';
 
     $cb = $_GET['cb'];
