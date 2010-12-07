@@ -173,9 +173,9 @@
             text = "<div style='color:black;font-weight:bold;size:14px;'><a href='" + data.url  + "'>" + data.place_name + "</a></div>";
             text += "<input type='text' value='" + lat_lon_string + "'/>";
             if(is_owner()) {
-                text += '<div id="mtgeo_setlocation_butt" style="margin:5px 0;width:80px;" onclick="mtgeo_setlocation(' + lat_lon_string + ');" class="Butt">Set Location</div>';
+                text += '<div id="mtgeo_setlocation_butt" style="margin:10px 0;width:80px;" onclick="mtgeo_setlocation(' + lat_lon_string + ');" class="Butt">Set Location</div>';
             }
-            text += "<a href='" + map_url + "'><img style='margin-top:10px;' src=" + url + "></a>";
+            text += "<a href='" + map_url + "'><img src=" + url + "></a>";
         } else {
             text = "Unable to fetch coordinates.";
         }
