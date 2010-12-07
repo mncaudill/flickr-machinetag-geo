@@ -180,9 +180,6 @@
             text = "Unable to fetch coordinates.";
         }
 
-
-        // Build button to geotag photo
-
         text += "<br><a onclick='document.getElementById(\"machinetaggeo-div\").style.display=\"none\";'>close</a>";
 
         info_box.innerHTML = text;
