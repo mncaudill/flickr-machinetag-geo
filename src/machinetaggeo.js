@@ -4,7 +4,8 @@ var MTGEO = {};
     var body_text = document.body.innerHTML, secrets,
     parser_url_root = "BUILD_URL_ROOT/parser.php?",
     info_box, photo_id, geo_sources = [],
-    is_owner = (/isOwner:\s*true/).test(body_text);
+    is_owner = (/isOwner:\s*true/).test(body_text),
+    enplacified_service = null;
 
     try {
         photo_id = location.pathname.match(/^\/photos\/([A-za-z0-9@]+)\/(\d+)\//)[2];
@@ -13,13 +14,13 @@ var MTGEO = {};
     }
 
     function jsonp_request(service, value, callback) {
-        var body, script, global_callback_name; 
+        var body, script, global_callback_name;
 
         global_callback_name = 'mtgeo_' + Math.floor(Math.random() * 100000000);
 
         // Globalize it
         MTGEO[global_callback_name] = callback;
-        
+
         body = document.body;
         script = document.createElement('script');
         script.src = parser_url_root + "cb=MTGEO." + global_callback_name + "&service=" + service + "&value=" + value;
@@ -71,7 +72,8 @@ var MTGEO = {};
         predicate: 'place',
         fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
-            jsonp_request('foodspotting', mt_value, this.fetch_geo_callback);           
+            enplacified_service = this.namespace;
+            jsonp_request(this.namespace, mt_value, this.fetch_geo_callback);
         }
     });
     geo_sources.push({
@@ -79,7 +81,8 @@ var MTGEO = {};
         predicate: 'venue',
         fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
-            jsonp_request('foursquare', mt_value, this.fetch_geo_callback);           
+            enplacified_service = this.namespace;
+            jsonp_request(this.namespace, mt_value, this.fetch_geo_callback);
         }
     });
     geo_sources.push({
@@ -87,7 +90,8 @@ var MTGEO = {};
         predicate: 'id',
         fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
-            jsonp_request('openplaques', mt_value, this.fetch_geo_callback);           
+            enplacified_service = this.namespace;
+            jsonp_request(this.namespace, mt_value, this.fetch_geo_callback);
         }
     });
     geo_sources.push({
@@ -95,7 +99,8 @@ var MTGEO = {};
         predicate: 'event',
         fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
-            jsonp_request('lastfm', 'event-' + mt_value, this.fetch_geo_callback);           
+            enplacified_service = this.namespace;
+            jsonp_request(this.namespace, 'event-' + mt_value, this.fetch_geo_callback);
         }
     });
     geo_sources.push({
@@ -103,7 +108,8 @@ var MTGEO = {};
         predicate: 'venue',
         fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
-            jsonp_request('lastfm', 'venue-' + mt_value, this.fetch_geo_callback);           
+            enplacified_service = this.namespace;
+            jsonp_request(this.namespace, 'venue-' + mt_value, this.fetch_geo_callback);
         }
     });
     geo_sources.push({
@@ -111,7 +117,8 @@ var MTGEO = {};
         predicate: 'explore',
         fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
-            jsonp_request('dopplr', mt_value, this.fetch_geo_callback);           
+            enplacified_service = this.namespace;
+            jsonp_request(this.namespace, mt_value, this.fetch_geo_callback);
         }
     });
     geo_sources.push({
@@ -119,7 +126,8 @@ var MTGEO = {};
         predicate: 'id',
         fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
-            jsonp_request('noticings', mt_value, this.fetch_geo_callback);           
+            enplacified_service = this.namespace;
+            jsonp_request(this.namespace, mt_value, this.fetch_geo_callback);
         }
     });
     geo_sources.push({
@@ -127,13 +135,14 @@ var MTGEO = {};
         predicate: 'event',
         fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
-            jsonp_request('upcoming', mt_value, this.fetch_geo_callback);           
+            enplacified_service = this.namespace;
+            jsonp_request(this.namespace, mt_value, this.fetch_geo_callback);
         }
     });
 
 
     function get_secrets() {
-       
+
         return {
             api_key: body_text.match(/api_key:\s*'([^']+)'/)[1],
             auth_hash: body_text.match(/auth_hash:\s*'([^']+)'/)[1],
@@ -160,8 +169,8 @@ var MTGEO = {};
         info_box.style.width = "300px";
         info_box.style.padding = "10px";
         info_box.id = "machinetaggeo-div";
-    
-    }   
+
+    }
 
     function extract_machine_tag_info(text) {
         var split, prefix, namespace, value, predicate;
@@ -215,10 +224,11 @@ var MTGEO = {};
                 url += '&auth_hash=' + secrets.auth_hash;
                 url += '&method=flickr.photos.addTags';
                 url += '&photo_id=' + photo_id;
-                url += '&tags=' + encodeURIComponent('enplacified:by=flickr-machinetag-geo');
+                url += '&tags=' + encodeURIComponent('enplacified:by=' + enplacified_service);
+                url += ',' + encodeURIComponent('enplacified:with=flickr-machinetag-geo');
 
-                xhr_request(url, function (data) { 
-                    console.log(data); 
+                xhr_request(url, function (data) {
+                    console.log(data);
                 });
 
             } else {
@@ -234,12 +244,12 @@ var MTGEO = {};
 
     function process_machine_tags() {
 
-        var machine_tags_links, machine_tags, machine_tag_info, 
+        var machine_tags_links, machine_tags, machine_tag_info,
         detected = false, i, j;
 
         // Does this page continue machine tags?
         machine_tags_links = document.querySelectorAll('#themachinetags > li > a');
-        
+
         // Does page contain one of our machine tagged geo sources?
         for (i = 0; i < machine_tags_links.length; i += 1) {
 
