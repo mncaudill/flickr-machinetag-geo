@@ -232,7 +232,7 @@ var MTGEO = {};
         detected = false, i, j;
 
         // Does this page continue machine tags?
-        machine_tags_links = document.querySelectorAll('#themachinetags > li > a');
+        machine_tags_links = document.querySelectorAll('#themachinetags > li a');
 
         // Does page contain one of our machine tagged geo sources?
         for (i = 0; i < machine_tags_links.length; i += 1) {
