@@ -8,7 +8,7 @@ var MTGEO = {};
     enplacified_service = null;
 
     try {
-        photo_id = location.pathname.match(/^\/photos\/([A-za-z0-9@]+)\/(\d+)\//)[2];
+        photo_id = location.pathname.match(/^\/photos\/([A-za-z0-9@-]+)\/(\d+)\//)[2];
     } catch (e) {
         photo_id = null;
     }
