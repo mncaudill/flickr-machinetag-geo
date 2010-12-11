@@ -1,10 +1,8 @@
 <?php
 
-    function get_geodata($value) {
+    function get_geodata($predicate, $value) {
 
         // Supports three predicates: eat, stay, explore
-        list($predicate, $value) = explode('-', $value);
-
         $url = "http://dplr.it/{$predicate}/" . $value;
         $page = file_get_contents($url);
 

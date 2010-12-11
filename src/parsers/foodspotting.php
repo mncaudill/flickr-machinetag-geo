@@ -1,8 +1,12 @@
 <?php
 
-    function get_geodata($value) {
+    function get_geodata($predicate, $value) {
 
-        $url = "http://www.foodspotting.com/places/" . $value;
+        if($predicate == 'place') {
+            $predicate = 'places';
+        }
+
+        $url = "http://www.foodspotting.com/$predicate/" . $value;
         $page = file_get_contents($url);
 
         // Extract latitude

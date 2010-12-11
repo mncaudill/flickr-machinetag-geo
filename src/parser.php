@@ -19,7 +19,7 @@
         'upcoming',
     );
 
-    if(!$cb || !$service || !$value || !in_array($service, $services)) {
+    if(!$cb || !$service || !$pred || !$value || !in_array($service, $services)) {
         exit;
     }
 
@@ -28,7 +28,7 @@
     require_once("parsers/$service.php");
 
     // array('latitude' => '23.5', longitude => '-150.3);
-    $json_geodata = json_encode(get_geodata($value, $pred));
+    $json_geodata = json_encode(get_geodata($pred, $value));
 
     echo "$cb($json_geodata);";
 

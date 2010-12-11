@@ -1,8 +1,8 @@
 <?php
 
-    function get_geodata($value) {
+    function get_geodata($predicate, $value) {
 
-        $url = "http://foursquare.com/venue/" . $value;
+        $url = "http://foursquare.com/$predicate/" . $value;
         $page = file_get_contents($url);
 
         // Extract latitude

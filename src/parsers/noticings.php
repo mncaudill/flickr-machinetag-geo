@@ -1,6 +1,6 @@
 <?php
 
-    function get_geodata($value) {
+    function get_geodata($predicate, $value) {
 
         $url = "http://noticin.gs/noticings/" . $value;
         $page = file_get_contents($url);

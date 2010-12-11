@@ -1,13 +1,11 @@
 <?php
 
-    function get_geodata($value) {
+    function get_geodata($predicate, $value) {
         global $services_auth;
 
         // Supports two predicates, event and venue
-        list($predicate, $value) = explode('-', $value);
 
         $key = $services_auth['lastfm']['key'];
-
 
         if($predicate == 'venue') {
             $url = "http://ws.audioscrobbler.com/2.0/?method=venue.getgetpastevents&venue=$value&api_key=$key&limit=1";
