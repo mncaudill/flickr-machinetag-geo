@@ -3,9 +3,34 @@ var MTGEO = {};
 (function () {
     var body_text = document.body.innerHTML, secrets,
     parser_url_root = "BUILD_URL_ROOT/parser.php?",
-    info_box, photo_id, geo_sources = [],
+    info_box, photo_id, geo_sources,
     is_owner = (/isOwner:\s*true/).test(body_text),
     enplacified_service = null;
+
+    // Possible geosources
+    geo_sources = { 
+        foodspotting: {
+            predicates: ['place']
+        },
+        foursquare: {
+            predicates: ['venue']
+        },
+        openplaques: {
+            predicates: ['id']
+        },
+        lastfm: { 
+            predicates: ['event', 'venue']
+        },
+        dopplr: { 
+            predicates: ['eat', 'explore', 'stay'],
+        },
+        noticings: { 
+            predicates: ['id']
+        },
+        upcoming: {
+            predicates: ['event']
+        }
+    };
 
     try {
         photo_id = location.pathname.match(/^\/photos\/(.*?)\/(\d+)\//)[2];
@@ -66,37 +91,6 @@ var MTGEO = {};
         write_close_button();
     }
 
-    // Possible geosources
-    geo_sources.push({
-        namespace: 'foodspotting',
-        predicates: ['place']
-    });
-    geo_sources.push({
-        namespace: 'foursquare',
-        predicates: ['venue']
-    });
-    geo_sources.push({
-        namespace: 'openplaques',
-        predicates: ['id']
-    });
-    geo_sources.push({
-        namespace: 'lastfm',
-        predicates: ['event', 'venue']
-    });
-    geo_sources.push({
-        namespace: 'dopplr',
-        predicates: ['eat', 'explore', 'stay']
-    });
-    geo_sources.push({
-        namespace: 'noticings',
-        predicates: ['id']
-    });
-    geo_sources.push({
-        namespace: 'upcoming',
-        predicates: ['event']
-    });
-
-
     function get_secrets() {
 
         return {
@@ -106,8 +100,6 @@ var MTGEO = {};
         };
 
     }
-
-    secrets = get_secrets();
 
     function draw_loading_box() {
         var body = document.body;
@@ -158,8 +150,11 @@ var MTGEO = {};
     }
 
     function set_geolocation(latitude, longitude) {
+        var url;
 
-        var url = '/services/rest/?';
+        secrets = secrets || get_secrets();
+
+        url = '/services/rest/?';
         url += '&api_key=' + secrets.api_key;
         url += '&auth_token=';
         url += '&auth_hash=' + secrets.auth_hash;
@@ -205,7 +200,7 @@ var MTGEO = {};
     function process_machine_tags() {
 
         var machine_tags_links, machine_tags, machine_tag_info,
-        detected = false, i, j, k, fetch_geo;
+        geo_source, detected = false, i, j, k, fetch_geo;
 
         // Does this page continue machine tags?
         machine_tags_links = document.querySelectorAll('#themachinetags > li a');
@@ -215,19 +210,22 @@ var MTGEO = {};
 
             machine_tag_info = extract_machine_tag_info(machine_tags_links[i].text);
 
-            for (j = 0; j < geo_sources.length; j += 1) {
-                for (k = 0; k < geo_sources[j].predicates.length; k += 1) {
-                    if (geo_sources[j].namespace ===  machine_tag_info.namespace &&
-                        geo_sources[j].predicates[k] === machine_tag_info.predicate) {
+            for (j in geo_sources) {
+                if (geo_sources.hasOwnProperty(machine_tag_info.namespace)) {
+                    geo_source = geo_sources[j];
+                    for (k = 0; k < geo_source.predicates.length; k += 1) {
+                        if (j ===  machine_tag_info.namespace &&
+                            geo_source.predicates[k] === machine_tag_info.predicate) {
 
-                        append_loading_text('Found machine tag for ' + machine_tag_info.namespace + '...');
-                        enplacified_service = machine_tag_info.namespace;
+                            append_loading_text('Found machine tag for ' + machine_tag_info.namespace + '...');
+                            enplacified_service = machine_tag_info.namespace;
 
-                        fetch_geo = geo_sources[j].fetch_geo || fetch_geo_default;
-                        fetch_geo(machine_tag_info);
+                            fetch_geo = geo_source.fetch_geo || fetch_geo_default;
+                            fetch_geo(machine_tag_info);
 
-                        detected = true;
-                        break;
+                            detected = true;
+                            break;
+                        }
                     }
                 }
             }
