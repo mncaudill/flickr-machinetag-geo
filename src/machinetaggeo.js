@@ -71,7 +71,6 @@ var MTGEO = {};
         namespace: 'foodspotting',
         predicate: 'place',
         fetch_geo: function (mt_value) {
-            enplacified_service = this.namespace;
             jsonp_request(this.namespace, mt_value, show_geo_data);
         }
     });
@@ -79,7 +78,6 @@ var MTGEO = {};
         namespace: 'foursquare',
         predicate: 'venue',
         fetch_geo: function (mt_value) {
-            enplacified_service = this.namespace;
             jsonp_request(this.namespace, mt_value, show_geo_data);
         }
     });
@@ -87,7 +85,6 @@ var MTGEO = {};
         namespace: 'openplaques',
         predicate: 'id',
         fetch_geo: function (mt_value) {
-            enplacified_service = this.namespace;
             jsonp_request(this.namespace, mt_value, show_geo_data);
         }
     });
@@ -95,7 +92,6 @@ var MTGEO = {};
         namespace: 'lastfm',
         predicate: 'event',
         fetch_geo: function (mt_value) {
-            enplacified_service = this.namespace;
             jsonp_request(this.namespace, 'event-' + mt_value, show_geo_data);
         }
     });
@@ -103,7 +99,6 @@ var MTGEO = {};
         namespace: 'lastfm',
         predicate: 'venue',
         fetch_geo: function (mt_value) {
-            enplacified_service = this.namespace;
             jsonp_request(this.namespace, 'venue-' + mt_value, show_geo_data);
         }
     });
@@ -111,7 +106,6 @@ var MTGEO = {};
         namespace: 'dopplr',
         predicate: 'explore',
         fetch_geo: function (mt_value) {
-            enplacified_service = this.namespace;
             jsonp_request(this.namespace, mt_value, show_geo_data);
         }
     });
@@ -119,7 +113,6 @@ var MTGEO = {};
         namespace: 'noticings',
         predicate: 'id',
         fetch_geo: function (mt_value) {
-            enplacified_service = this.namespace;
             jsonp_request(this.namespace, mt_value, show_geo_data);
         }
     });
@@ -127,7 +120,6 @@ var MTGEO = {};
         namespace: 'upcoming',
         predicate: 'event',
         fetch_geo: function (mt_value) {
-            enplacified_service = this.namespace;
             jsonp_request(this.namespace, mt_value, show_geo_data);
         }
     });
@@ -252,6 +244,7 @@ var MTGEO = {};
                     geo_sources[j].predicate === machine_tag_info.predicate) {
 
                     append_loading_text('Found machine tag for ' + machine_tag_info.namespace + '...');
+                    enplacified_service = machine_tag_info.namespace;
                     geo_sources[j].fetch_geo(machine_tag_info.value);
                     detected = true;
                     break;
