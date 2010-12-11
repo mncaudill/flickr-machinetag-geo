@@ -70,73 +70,65 @@ var MTGEO = {};
     geo_sources.push({
         namespace: 'foodspotting',
         predicate: 'place',
-        fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
             enplacified_service = this.namespace;
-            jsonp_request(this.namespace, mt_value, this.fetch_geo_callback);
+            jsonp_request(this.namespace, mt_value, show_geo_data);
         }
     });
     geo_sources.push({
         namespace: 'foursquare',
         predicate: 'venue',
-        fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
             enplacified_service = this.namespace;
-            jsonp_request(this.namespace, mt_value, this.fetch_geo_callback);
+            jsonp_request(this.namespace, mt_value, show_geo_data);
         }
     });
     geo_sources.push({
         namespace: 'openplaques',
         predicate: 'id',
-        fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
             enplacified_service = this.namespace;
-            jsonp_request(this.namespace, mt_value, this.fetch_geo_callback);
+            jsonp_request(this.namespace, mt_value, show_geo_data);
         }
     });
     geo_sources.push({
         namespace: 'lastfm',
         predicate: 'event',
-        fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
             enplacified_service = this.namespace;
-            jsonp_request(this.namespace, 'event-' + mt_value, this.fetch_geo_callback);
+            jsonp_request(this.namespace, 'event-' + mt_value, show_geo_data);
         }
     });
     geo_sources.push({
         namespace: 'lastfm',
         predicate: 'venue',
-        fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
             enplacified_service = this.namespace;
-            jsonp_request(this.namespace, 'venue-' + mt_value, this.fetch_geo_callback);
+            jsonp_request(this.namespace, 'venue-' + mt_value, show_geo_data);
         }
     });
     geo_sources.push({
         namespace: 'dopplr',
         predicate: 'explore',
-        fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
             enplacified_service = this.namespace;
-            jsonp_request(this.namespace, mt_value, this.fetch_geo_callback);
+            jsonp_request(this.namespace, mt_value, show_geo_data);
         }
     });
     geo_sources.push({
         namespace: 'noticings',
         predicate: 'id',
-        fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
             enplacified_service = this.namespace;
-            jsonp_request(this.namespace, mt_value, this.fetch_geo_callback);
+            jsonp_request(this.namespace, mt_value, show_geo_data);
         }
     });
     geo_sources.push({
         namespace: 'upcoming',
         predicate: 'event',
-        fetch_geo_callback: show_geo_data,
         fetch_geo: function (mt_value) {
             enplacified_service = this.namespace;
-            jsonp_request(this.namespace, mt_value, this.fetch_geo_callback);
+            jsonp_request(this.namespace, mt_value, show_geo_data);
         }
     });
 
@@ -269,7 +261,6 @@ var MTGEO = {};
             if (detected) {
                 break;
             }
-
         }
 
         return detected;
