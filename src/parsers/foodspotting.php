@@ -4,7 +4,7 @@
 
         $url = "http://www.foodspotting.com/places/" . $value;
         $page = file_get_contents($url);
-        
+
         // Extract latitude
         preg_match('#id="place_latitude".*value="(.*)"#U', $page, $matches);
         $latitude = $matches[1];

@@ -104,9 +104,23 @@ var MTGEO = {};
     });
     geo_sources.push({
         namespace: 'dopplr',
+        predicate: 'eat',
+        fetch_geo: function (mt_value) {
+            jsonp_request(this.namespace, 'eat-' + mt_value, show_geo_data);
+        }
+    });
+    geo_sources.push({
+        namespace: 'dopplr',
         predicate: 'explore',
         fetch_geo: function (mt_value) {
-            jsonp_request(this.namespace, mt_value, show_geo_data);
+            jsonp_request(this.namespace, 'explore-' + mt_value, show_geo_data);
+        }
+    });
+    geo_sources.push({
+        namespace: 'dopplr',
+        predicate: 'stay',
+        fetch_geo: function (mt_value) {
+            jsonp_request(this.namespace, 'stay-' + mt_value, show_geo_data);
         }
     });
     geo_sources.push({

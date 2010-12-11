@@ -4,7 +4,7 @@
 
         $url = "http://foursquare.com/venue/" . $value;
         $page = file_get_contents($url);
-        
+
         // Extract latitude
         preg_match('#<meta content="(.*)" property="og:latitude"#U', $page, $matches);
         $latitude = $matches[1];

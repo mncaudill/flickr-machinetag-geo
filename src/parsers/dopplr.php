@@ -2,9 +2,12 @@
 
     function get_geodata($value) {
 
-        $url = "http://dplr.it/explore/" . $value;
+        // Supports three predicates: eat, stay, explore
+        list($predicate, $value) = explode('-', $value);
+
+        $url = "http://dplr.it/{$predicate}/" . $value;
         $page = file_get_contents($url);
-        
+
         // Extract latitude
         preg_match('#pointLat:(-?\d.*),#U', $page, $matches);
         $latitude = $matches[1];

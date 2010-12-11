@@ -7,6 +7,7 @@
     $cb = $_GET['cb'];
     $service = $_GET['service'];
     $value = $_GET['value'];
+    $pred = $_GET['pred'];
 
     $services = array(
         'dopplr',
@@ -27,8 +28,8 @@
     require_once("parsers/$service.php");
 
     // array('latitude' => '23.5', longitude => '-150.3);
-    $json_geodata = json_encode(get_geodata($value));
-    
+    $json_geodata = json_encode(get_geodata($value, $pred));
+
     echo "$cb($json_geodata);";
 
     function escape_string($string) {
