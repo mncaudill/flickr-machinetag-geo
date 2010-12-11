@@ -22,7 +22,7 @@ Currently supported machine tags:
 * openplaques
 * noticin.gs
 
-Check out [the project page][project_page] for the draggable bookmarklet. Note: this photo also adds an enplacified:by machine tag, just in case other applications start using non-geo metadata to add geo information (per a suggestion by Aaron).
+Check out [the project page][project_page] for the draggable bookmarklet. Note: this bookmarklet also adds an enplacified:by machine tag, just in case other applications start using non-geo metadata to add geo information (per a suggestion by Aaron).
 
 A good first page to look at is Flickr's own, Chris Martin: [Foodspotting example][foodspotting_example]
 
