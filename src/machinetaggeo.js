@@ -226,6 +226,18 @@
             var button = document.getElementById('mtgeo_setlocation_butt');
             if(data.match(/stat="ok"/)) {
                 button.innerHTML = 'Success';
+
+                // Now add the tag...
+                url = '/services/rest/?';
+                url += '&api_key=' + secrets.api_key;
+                url += '&auth_token=';
+                url += '&auth_hash=' + secrets.auth_hash;
+                url += '&method=flickr.photos.addTags';
+                url += '&photo_id=' + photo_id;
+                url += '&tags=' + encodeURIComponent('enplacified:by=flickr-machinetag-geo');
+
+                xhr_request(url, function(data){ console.log(data); });
+
             } else {
                 button.innerHTML = 'Error';
                 button.className = 'DeleteButt';
@@ -234,16 +246,6 @@
             button.onclick = null;
         });
 
-        // Now add the tag...
-        url = '/services/rest/?';
-        url += '&api_key=' + secrets.api_key;
-        url += '&auth_token=';
-        url += '&auth_hash=' + secrets.auth_hash;
-        url += '&method=flickr.photos.addTags';
-        url += '&photo_id=' + photo_id;
-        url += '&tags=' + encodeURIComponent('enplacified:by=flickr-machinetag-geo');
-
-        xhr_request(url, function(data){ console.log(data); });
 
     }
     window.mtgeo_setlocation = set_geolocation;
