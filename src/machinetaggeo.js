@@ -22,7 +22,7 @@ var MTGEO = {};
             predicates: ['event', 'venue']
         },
         dopplr: { 
-            predicates: ['eat', 'explore', 'stay'],
+            predicates: ['eat', 'explore', 'stay']
         },
         noticings: { 
             predicates: ['id']
