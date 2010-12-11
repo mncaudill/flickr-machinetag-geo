@@ -1,4 +1,4 @@
-/*jslint white: true, browser: true, onevar: true, undef: true, nomen: true, eqeqeq: true, plusplus: true, bitwise: true, regexp: true, newcap: true, immed: true */
+/*jslint white: true, browser: true, onevar: true, undef: true, nomen: true, eqeqeq: true, plusplus: true, regexp: false, bitwise: true, newcap: true, immed: true */
 var MTGEO = {};
 (function () {
     var body_text = document.body.innerHTML, secrets,
@@ -8,7 +8,7 @@ var MTGEO = {};
     enplacified_service = null;
 
     try {
-        photo_id = location.pathname.match(/^\/photos\/([A-za-z0-9@-]+)\/(\d+)\//)[2];
+        photo_id = location.pathname.match(/^\/photos\/(.*?)\/(\d+)\//)[2];
     } catch (e) {
         photo_id = null;
     }
