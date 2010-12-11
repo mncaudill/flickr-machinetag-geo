@@ -199,22 +199,20 @@
 
     }
 
-    function set_geolocation(latitude, longitude) {
+    function xhr_request(url, callback) {
+
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(){
             if(xhr.readyState == 4) {
-                var button = document.getElementById('mtgeo_setlocation_butt');
-                if(xhr.responseText.match(/stat="ok"/)) {
-                    button.innerHTML = 'Success';
-                } else {
-                    button.innerHTML = 'Error';
-                    button.className = 'DeleteButt';
-                }
-
-                button.onclick = null;
+                callback(xhr.responseText);
             }
         };
 
+        xhr.open('GET', url);
+        xhr.send(null);
+    }
+
+    function set_geolocation(latitude, longitude) {
         var url = '/services/rest/?';
         url += '&api_key=' + secrets.api_key;
         url += '&auth_token=';
@@ -223,9 +221,30 @@
         url += '&lon=' + longitude;
         url += '&method=flickr.photos.geo.setLocation';
         url += '&photo_id=' + photo_id;
-        url += '&secret=' + secrets.secret;
-        xhr.open('GET', url);
-        xhr.send(null);
+
+        xhr_request(url, function(data) {
+            var button = document.getElementById('mtgeo_setlocation_butt');
+            if(data.match(/stat="ok"/)) {
+                button.innerHTML = 'Success';
+            } else {
+                button.innerHTML = 'Error';
+                button.className = 'DeleteButt';
+            }
+
+            button.onclick = null;
+        });
+
+        // Now add the tag...
+        url = '/services/rest/?';
+        url += '&api_key=' + secrets.api_key;
+        url += '&auth_token=';
+        url += '&auth_hash=' + secrets.auth_hash;
+        url += '&method=flickr.photos.addTags';
+        url += '&photo_id=' + photo_id;
+        url += '&tags=' + encodeURIComponent('enplacified:by=flickr-machinetag-geo');
+
+        xhr_request(url, function(data){ console.log(data); });
+
     }
     window.mtgeo_setlocation = set_geolocation;
 
