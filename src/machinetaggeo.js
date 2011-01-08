@@ -29,7 +29,10 @@ var MTGEO = {};
         },
         upcoming: {
             predicates: ['event']
-        }
+        },
+        aero: {
+            predicates: ['airport']
+        },
     };
 
     try {
