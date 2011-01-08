@@ -32,7 +32,7 @@ var MTGEO = {};
         },
         aero: {
             predicates: ['airport']
-        },
+        }
     };
 
     try {
