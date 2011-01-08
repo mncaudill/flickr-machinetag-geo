@@ -21,6 +21,7 @@ Currently supported machine tags:
 * dopplr
 * openplaques
 * noticin.gs
+* aero
 
 Check out [the project page][project_page] for the draggable bookmarklet. Note: this bookmarklet also adds an enplacified:by machine tag, just in case other applications start using non-geo metadata to add geo information (per a suggestion by Aaron).
 
