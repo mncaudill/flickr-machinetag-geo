@@ -3,6 +3,7 @@ var MTGEO = {};
 (function () {
     var body_text = document.body.innerHTML, secrets,
     parser_url_root = "BUILD_URL_ROOT/parser.php?",
+//    parser_url_root = "http://localhost/machinetaggeo/parser.php?",
     info_box, photo_id, geo_sources,
     is_owner = (/isOwner:\s*true/).test(body_text),
     enplacified_service = null;
@@ -125,6 +126,7 @@ var MTGEO = {};
 
     function extract_machine_tag_info(text) {
         var split, prefix, namespace, value, predicate;
+        text = unescape(text);
 
         split = text.split('=');
         prefix = split[0].split(':');
@@ -202,7 +204,7 @@ var MTGEO = {};
 
     function process_machine_tags() {
 
-        var machine_tags_links, machine_tags, machine_tag_info,
+        var machine_tags_links, machine_tags, machine_tag_info, data_tag,
         geo_source, detected = false, i, j, k, fetch_geo;
 
         // Does this page continue machine tags?
@@ -211,30 +213,34 @@ var MTGEO = {};
         // Does page contain one of our machine tagged geo sources?
         for (i = 0; i < machine_tags_links.length; i += 1) {
 
-            machine_tag_info = extract_machine_tag_info(machine_tags_links[i].text);
+            data_tag = machine_tags_links[i].getAttribute('data-tag');
 
-            for (j in geo_sources) {
-                if (geo_sources.hasOwnProperty(machine_tag_info.namespace)) {
-                    geo_source = geo_sources[j];
-                    for (k = 0; k < geo_source.predicates.length; k += 1) {
-                        if (j ===  machine_tag_info.namespace &&
-                            geo_source.predicates[k] === machine_tag_info.predicate) {
+            if (data_tag) {
+                machine_tag_info = extract_machine_tag_info(data_tag);
 
-                            append_loading_text('Found machine tag for ' + machine_tag_info.namespace + '...');
-                            enplacified_service = machine_tag_info.namespace;
+                for (j in geo_sources) {
+                    if (geo_sources.hasOwnProperty(machine_tag_info.namespace)) {
+                        geo_source = geo_sources[j];
+                        for (k = 0; k < geo_source.predicates.length; k += 1) {
+                            if (j ===  machine_tag_info.namespace &&
+                                geo_source.predicates[k] === machine_tag_info.predicate) {
 
-                            fetch_geo = geo_source.fetch_geo || fetch_geo_default;
-                            fetch_geo(machine_tag_info);
+                                append_loading_text('Found machine tag for ' + machine_tag_info.namespace + '...');
+                                enplacified_service = machine_tag_info.namespace;
 
-                            detected = true;
-                            break;
+                                fetch_geo = geo_source.fetch_geo || fetch_geo_default;
+                                fetch_geo(machine_tag_info);
+
+                                detected = true;
+                                break;
+                            }
                         }
                     }
                 }
-            }
 
-            if (detected) {
-                break;
+                if (detected) {
+                    break;
+                }
             }
         }
 
