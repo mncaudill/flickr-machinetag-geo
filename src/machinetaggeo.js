@@ -3,7 +3,6 @@ var MTGEO = {};
 (function () {
     var body_text = document.body.innerHTML, secrets,
     parser_url_root = "BUILD_URL_ROOT/parser.php?",
-//    parser_url_root = "http://localhost/machinetaggeo/parser.php?",
     info_box, photo_id, geo_sources,
     is_owner = (/isOwner:\s*true/).test(body_text),
     enplacified_service = null;
