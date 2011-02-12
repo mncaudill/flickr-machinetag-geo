@@ -36,7 +36,7 @@ var MTGEO = {};
     };
 
     try {
-        photo_id = location.pathname.match(/^\/photos\/(.*?)\/(\d+)\//)[2];
+        photo_id = location.pathname.match(/^\/photos\/(.*?)\/(\d+)\/?/)[2];
     } catch (e) {
         photo_id = null;
     }
