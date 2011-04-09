@@ -97,9 +97,9 @@ var MTGEO = {};
     function get_secrets() {
 
         return {
-            api_key: body_text.match(/api_key:\s*'([^']+)'/)[1],
-            auth_hash: body_text.match(/auth_hash:\s*'([^']+)'/)[1],
-            secret: body_text.match(/secret:\s*'([^']+)'/)[1]
+            api_key: body_text.match(/"api_key":\s*"([^"]+)"/)[1],
+            auth_hash: body_text.match(/"auth_hash":\s*"([^"]+)"/)[1],
+            secret: body_text.match(/"secret":\s*"([^"]+)"/)[1]
         };
 
     }
